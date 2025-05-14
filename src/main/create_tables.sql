@@ -38,7 +38,7 @@ CREATE TABLE produto (
     id BIGSERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     descricao TEXT,
-    preco DOUBLE PRECISION NOT NULL,
+    qualidade VARCHAR(20) NOT NULL,
     data_criacao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     reino_origem_id BIGINT NOT NULL,
     CONSTRAINT fk_produto_reino FOREIGN KEY (reino_origem_id) REFERENCES reino(id)

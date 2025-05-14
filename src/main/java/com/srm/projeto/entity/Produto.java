@@ -1,5 +1,6 @@
 package com.srm.projeto.entity;
 
+import com.srm.projeto.enun.Qualidade;
 import lombok.Builder;
 import lombok.Data;
 
@@ -18,7 +19,8 @@ public class Produto {
 
     private String descricao;
 
-    private Double preco;
+    @Enumerated(EnumType.STRING)
+    private Qualidade qualidade;
 
     private LocalDateTime dataCriacao;
 

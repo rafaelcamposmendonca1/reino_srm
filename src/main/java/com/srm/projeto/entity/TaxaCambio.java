@@ -25,9 +25,6 @@ public class TaxaCambio {
     private Double taxa;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private OffsetDateTime dataVigencia;
-
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private OffsetDateTime dataCriacao;
 
 }

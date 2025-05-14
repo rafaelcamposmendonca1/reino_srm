@@ -5,7 +5,6 @@ import com.srm.projeto.model.TransacaoInput;
 import com.srm.projeto.model.TransacaoOutput;
 import com.srm.projeto.service.TransacaoService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 

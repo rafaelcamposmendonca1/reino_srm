@@ -83,6 +83,7 @@ paths:
           required: true
           schema:
             type: integer
+            format: int64
           description: ID da taxa de cambio
       requestBody:
         required: true
@@ -244,10 +245,6 @@ components:
         taxa:
           type: number
           format: double
-      required:
-        - moedaOrigemId
-        - moedaDestinoId
-        - taxa
 
     ProdutoOutput:
       type: object
@@ -259,16 +256,24 @@ components:
           type: string
         descricao:
           type: string
-        reinoOrigem:
-          $ref: '#/components/schemas/ReinoOutput'
         preco:
           type: number
           format: double
+        qualidade:
+          type: string
+          enum:
+            - ruim
+            - media
+            - boa
+            - otima
+        reinoOrigem:
+          $ref: '#/components/schemas/ReinoOutput'
       required:
         - id
         - nome
-        - reinoOrigem
         - preco
+        - qualidade
+        - reinoOrigem
 
     ProdutoInput:
       type: object
@@ -277,15 +282,24 @@ components:
           type: string
         descricao:
           type: string
-        reinoOrigem:
-          type: string
         preco:
           type: number
           format: double
+        qualidade:
+          type: string
+          enum:
+            - ruim
+            - media
+            - boa
+            - otima
+        reinoOrigem:
+          type: string
       required:
+        - id
         - nome
-        - reinoOrigem
         - preco
+        - qualidade
+        - reinoOrigem
 
     TransacaoOutput:
       type: object
@@ -337,7 +351,6 @@ components:
         - moedaOrigemId
         - moedaDestinoId
         - valorOriginal
-        - valorConvertido
 
     ReinoOutput:
       type: object
