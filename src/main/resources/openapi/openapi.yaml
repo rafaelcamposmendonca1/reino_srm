@@ -282,9 +282,6 @@ components:
           type: string
         descricao:
           type: string
-        preco:
-          type: number
-          format: double
         qualidade:
           type: string
           enum:
@@ -297,7 +294,6 @@ components:
       required:
         - id
         - nome
-        - preco
         - qualidade
         - reinoOrigem
 
@@ -309,14 +305,19 @@ components:
           format: int64
         produto:
           $ref: '#/components/schemas/ProdutoOutput'
-        moeda:
+        quantidade:
+          type: integer
+        moedaProduto:
           $ref: '#/components/schemas/MoedaOutput'
+        moedaTransacao:
+          $ref: '#/components/schemas/MoedaOutput'
+        valorProduto:
+          type: number
+          format: double
         valorConvertido:
           type: number
           format: double
-        quantidade:
-          type: integer
-        reinoOrigem:
+        reinoTransacao:
           $ref: '#/components/schemas/ReinoOutput'
         dataTransacao:
           type: string
@@ -324,10 +325,12 @@ components:
       required:
         - id
         - produto
-        - moeda
-        - valorConvertido
         - quantidade
-        - reinoOrigem
+        - moedaProduto
+        - moedaTransacao
+        - valorProduto
+        - valorConvertido
+        - reinoTransacao
         - dataTransacao
 
     TransacaoInput:
@@ -338,19 +341,24 @@ components:
           format: int64
         quantidade:
           type: integer
-        valor:
+        valorProduto:
           type: number
           format: double
-        moedaId:
+        moedaProdutoId:
           type: integer
           format: int64
-        reinoOrigem:
+        moedaTransacaoId:
+          type: integer
+          format: int64
+        reinoTransacao:
           type: string
       required:
         - produtoId
-        - moedaOrigemId
-        - moedaDestinoId
-        - valorOriginal
+        - quantidade
+        - valorProduto
+        - moedaProdutoId
+        - moedaTransacaoId
+        - reinoTransacao
 
     ReinoOutput:
       type: object

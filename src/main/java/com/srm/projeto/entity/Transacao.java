@@ -18,21 +18,25 @@ public class Transacao {
     private Produto produto;
 
     @OneToOne
-    @JoinColumn(name = "moeda_id")
-    private Moeda moeda;
+    @JoinColumn(name = "moeda_produto_id")
+    private Moeda moedaProduto;
 
-    private Double valorOriginal;
+    @OneToOne
+    @JoinColumn(name = "moeda_transacao_id")
+    private Moeda moedaTransacao;
+
+    private Integer quantidade;
+
+    private Double valorProduto;
 
     private Double valorConvertido;
 
     private Double valorTotalConvertido;
 
-    private Integer quantidade;
+    @ManyToOne
+    @JoinColumn(name = "reino_transacao_id", nullable = false)
+    private Reino reinoTransacao;
 
     private LocalDateTime data_transacao = LocalDateTime.now();
-
-    @ManyToOne
-    @JoinColumn(name = "reino_origem_id", nullable = false)
-    private Reino reinoOrigem;
 
 }

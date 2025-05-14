@@ -47,14 +47,16 @@ CREATE TABLE produto (
 CREATE TABLE transacao (
     id BIGSERIAL PRIMARY KEY,
     produto_id BIGINT NOT NULL,
-    moeda_id BIGINT NOT NULL,
+    quantidade INTEGER NOT NULL,
+    moeda_produto_id BIGINT NOT NULL,
+    moeda_transacao_id BIGINT NOT NULL,
     valor_original DOUBLE PRECISION NOT NULL,
     valor_convertido DOUBLE PRECISION NOT NULL,
     valor_total_convertido DOUBLE PRECISION NOT NULL,
-    quantidade INTEGER NOT NULL,
+    reino_transacao_id BIGINT NOT NULL,
     data_transacao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    reino_origem_id BIGINT NOT NULL,
     CONSTRAINT fk_transacao_produto FOREIGN KEY (produto_id) REFERENCES produto(id),
-    CONSTRAINT fk_transacao_moeda FOREIGN KEY (moeda_id) REFERENCES moeda(id),
-    CONSTRAINT fk_transacao_reino FOREIGN KEY (reino_origem_id) REFERENCES reino(id)
+    CONSTRAINT fk_transacao_moeda_produto FOREIGN KEY (moeda_produto_id) REFERENCES moeda(id),
+    CONSTRAINT fk_transacao_moeda_transacao FOREIGN KEY (moeda_transacao_id) REFERENCES moeda(id),
+    CONSTRAINT fk_transacao_reino FOREIGN KEY (reino_transacao_id) REFERENCES reino(id)
 );

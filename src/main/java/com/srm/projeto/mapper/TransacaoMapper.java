@@ -13,6 +13,6 @@ public interface TransacaoMapper {
 
     List<TransacaoOutput> transacaoListToTransacaoOutputList(List<Transacao> transacaoList);
     TransacaoOutput transacaoToTransacaoOutput(Transacao transacao);
-    @Mapping(source = "reinoOrigem", target = "reinoOrigem")
+    @Mapping(source = "reinoTransacao", target = "reinoTransacao")
     Transacao transacaoInputToTransacao(TransacaoInput transacaoInput);
 }
