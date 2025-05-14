@@ -1,4 +1,7 @@
 package com.srm.projeto.repository;
 
-public interface TransacaoRepository {
+import com.srm.projeto.entity.Transacao;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TransacaoRepository extends JpaRepository<Transacao, Long> {
 }
