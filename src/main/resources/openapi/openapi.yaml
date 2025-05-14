@@ -1,0 +1,500 @@
+openapi: 3.0.0
+info:
+  title: API de Conversao de Moedas do Reino SRM
+  description: |
+    API para gerenciar conversoes entre Ouro Real e Tibar no Mercado de Pulgas dos Mil Saberes.
+  version: 1.0.0
+servers:
+  - url: /api/v1
+    description: Servidor principal
+
+tags:
+  - name: Moedas
+    description: Operacoes relacionadas as moedas e taxas de cambio
+  - name: Produtos
+    description: Operacoes relacionadas aos produtos
+  - name: Conversao
+    description: Operacoes de conversao de moedas
+
+paths:
+  /moedas:
+    get:
+      summary: Lista as moedas disponiveis (Ouro Real e Tibar)
+      tags:
+        - Moedas
+      responses:
+        '200':
+          description: Lista de moedas retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Moeda'
+
+  /taxas-cambio:
+    get:
+      summary: Obtém a taxa de cambio atual entre Ouro Real e Tibar
+      tags:
+        - Moedas
+      responses:
+        '200':
+          description: Taxa de cambio atual retornada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxaCambio'
+    post:
+      summary: Atualiza a taxa de cambio entre Ouro Real e Tibar
+      tags:
+        - Moedas
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaxaCambioInput'
+      responses:
+        '201':
+          description: Taxa de cambio atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxaCambio'
+
+  /produtos:
+    get:
+      summary: Lista todos os produtos disponiveis para negociacao
+      tags:
+        - Produtos
+      responses:
+        '200':
+          description: Lista de produtos retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Produto'
+    post:
+      summary: Adiciona um novo produto
+      tags:
+        - Produtos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProdutoInput'
+      responses:
+        '201':
+          description: Produto criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+
+  /produtos/{id}:
+    get:
+      summary: Obtém detalhes de um produto especifico
+      tags:
+        - Produtos
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID do produto
+      responses:
+        '200':
+          description: Detalhes do produto retornados com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+        '404':
+          description: Produto nao encontrado
+
+  /produtos/{id}/taxa-especifica:
+    get:
+      summary: Obtém a taxa de conversao especifica para um produto
+      tags:
+        - Produtos
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID do produto
+      responses:
+        '200':
+          description: Taxa especifica do produto retornada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxaEspecificaProduto'
+    post:
+      summary: Define a taxa de conversao especifica para um produto
+      tags:
+        - Produtos
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID do produto
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaxaEspecificaProdutoInput'
+      responses:
+        '200':
+          description: Taxa especifica do produto definida com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxaEspecificaProduto'
+
+  /conversao:
+    post:
+      summary: Realiza uma conversao de moeda para um produto especifico
+      tags:
+        - Conversao
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConversaoInput'
+      responses:
+        '200':
+          description: Conversao realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultadoConversao'
+
+  /transacoes:
+    get:
+      summary: Lista as transacoes realizadas
+      tags:
+        - Conversao
+      responses:
+        '200':
+          description: Lista de transacoes retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transacao'
+    post:
+      summary: Registra uma nova transacao
+      tags:
+        - Conversao
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransacaoInput'
+      responses:
+        '201':
+          description: Transacao registrada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transacao'
+
+components:
+  schemas:
+    Moeda:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        simbolo:
+          type: string
+        descricao:
+          type: string
+      required:
+        - id
+        - nome
+        - simbolo
+
+    TaxaCambio:
+      type: object
+      properties:
+        id:
+          type: integer
+        moedaOrigem:
+          $ref: '#/components/schemas/Moeda'
+        moedaDestino:
+          $ref: '#/components/schemas/Moeda'
+        taxa:
+          type: number
+          format: double
+        dataVigencia:
+          type: string
+          format: date
+        dataCriacao:
+          type: string
+          format: date-time
+      required:
+        - id
+        - moedaOrigem
+        - moedaDestino
+        - taxa
+        - dataVigencia
+
+    TaxaCambioInput:
+      type: object
+      properties:
+        moedaOrigemId:
+          type: integer
+        moedaDestinoId:
+          type: integer
+        taxa:
+          type: number
+          format: double
+        dataVigencia:
+          type: string
+          format: date
+      required:
+        - moedaOrigemId
+        - moedaDestinoId
+        - taxa
+        - dataVigencia
+
+    Produto:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        descricao:
+          type: string
+        reinoOrigem:
+          type: string
+          enum: [SRM, Anoes]
+        precoBase:
+          type: number
+          format: double
+        ativo:
+          type: boolean
+      required:
+        - id
+        - nome
+        - reinoOrigem
+        - precoBase
+
+    ProdutoInput:
+      type: object
+      properties:
+        nome:
+          type: string
+        descricao:
+          type: string
+        reinoOrigem:
+          type: string
+          enum: [SRM, Anoes]
+        precoBase:
+          type: number
+          format: double
+        ativo:
+          type: boolean
+      required:
+        - nome
+        - reinoOrigem
+        - precoBase
+
+    TaxaEspecificaProduto:
+      type: object
+      properties:
+        id:
+          type: integer
+        produto:
+          $ref: '#/components/schemas/Produto'
+        moedaOrigem:
+          $ref: '#/components/schemas/Moeda'
+        moedaDestino:
+          $ref: '#/components/schemas/Moeda'
+        fatorAjuste:
+          type: number
+          format: double
+        formulaConversao:
+          type: string
+        ativa:
+          type: boolean
+      required:
+        - id
+        - produto
+        - moedaOrigem
+        - moedaDestino
+        - fatorAjuste
+        - ativa
+
+    TaxaEspecificaProdutoInput:
+      type: object
+      properties:
+        moedaOrigemId:
+          type: integer
+        moedaDestinoId:
+          type: integer
+        fatorAjuste:
+          type: number
+          format: double
+        formulaConversao:
+          type: string
+        ativa:
+          type: boolean
+      required:
+        - moedaOrigemId
+        - moedaDestinoId
+        - fatorAjuste
+        - ativa
+
+    ConversaoInput:
+      type: object
+      properties:
+        produtoId:
+          type: integer
+        moedaOrigemId:
+          type: integer
+        moedaDestinoId:
+          type: integer
+        quantidade:
+          type: number
+          format: double
+        valor:
+          type: number
+          format: double
+      required:
+        - produtoId
+        - moedaOrigemId
+        - moedaDestinoId
+        - quantidade
+        - valor
+
+    ResultadoConversao:
+      type: object
+      properties:
+        valorOriginal:
+          type: number
+          format: double
+        moedaOrigem:
+          $ref: '#/components/schemas/Moeda'
+        valorConvertido:
+          type: number
+          format: double
+        moedaDestino:
+          $ref: '#/components/schemas/Moeda'
+        taxaUtilizada:
+          type: number
+          format: double
+        produto:
+          $ref: '#/components/schemas/Produto'
+        quantidade:
+          type: number
+          format: double
+        fatorAjusteProduto:
+          type: number
+          format: double
+        dataConversao:
+          type: string
+          format: date-time
+      required:
+        - valorOriginal
+        - moedaOrigem
+        - valorConvertido
+        - moedaDestino
+        - taxaUtilizada
+        - produto
+        - quantidade
+        - dataConversao
+
+    Transacao:
+      type: object
+      properties:
+        id:
+          type: integer
+        produto:
+          $ref: '#/components/schemas/Produto'
+        moedaOrigem:
+          $ref: '#/components/schemas/Moeda'
+        moedaDestino:
+          $ref: '#/components/schemas/Moeda'
+        valorOriginal:
+          type: number
+          format: double
+        valorConvertido:
+          type: number
+          format: double
+        taxaUtilizada:
+          type: number
+          format: double
+        quantidade:
+          type: number
+          format: double
+        reinoOrigem:
+          type: string
+          enum: [SRM, Anoes]
+        dataTransacao:
+          type: string
+          format: date-time
+      required:
+        - id
+        - produto
+        - moedaOrigem
+        - moedaDestino
+        - valorOriginal
+        - valorConvertido
+        - taxaUtilizada
+        - quantidade
+        - reinoOrigem
+        - dataTransacao
+
+    TransacaoInput:
+      type: object
+      properties:
+        produtoId:
+          type: integer
+        moedaOrigemId:
+          type: integer
+        moedaDestinoId:
+          type: integer
+        valorOriginal:
+          type: number
+          format: double
+        valorConvertido:
+          type: number
+          format: double
+        taxaUtilizada:
+          type: number
+          format: double
+        quantidade:
+          type: number
+          format: double
+        reinoOrigem:
+          type: string
+          enum: [SRM, Anoes]
+        dataTransacao:
+          type: string
+          format: date-time
+      required:
+        - produtoId
+        - moedaOrigemId
+        - moedaDestinoId
+        - valorOriginal
+        - valorConvertido
+        - taxaUtilizada
+        - quantidade
+        - reinoOrigem
