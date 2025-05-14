@@ -247,7 +247,7 @@ components:
         descricao:
           type: string
         reinoOrigem:
-          $ref: '#/components/schemas/Reino'
+          $ref: '#/components/schemas/ReinoOutput'
         preco:
           type: number
           format: double
@@ -265,7 +265,7 @@ components:
         descricao:
           type: string
         reinoOrigem:
-          $ref: '#/components/schemas/Reino'
+          type: string
         preco:
           type: number
           format: double
@@ -290,7 +290,7 @@ components:
         quantidade:
           type: integer
         reinoOrigem:
-          $ref: '#/components/schemas/Reino'
+          $ref: '#/components/schemas/ReinoOutput'
         dataTransacao:
           type: string
           format: date-time
@@ -318,7 +318,7 @@ components:
           type: integer
           format: int64
         reinoOrigem:
-          $ref: '#/components/schemas/Reino'
+          type: string
       required:
         - produtoId
         - moedaOrigemId
@@ -326,13 +326,13 @@ components:
         - valorOriginal
         - valorConvertido
 
-    Reino:
+    ReinoOutput:
       type: object
       properties:
         id:
           type: integer
         nome:
-          type: integer
+          type: string
       required:
         - nome
         - taxaUtilizada

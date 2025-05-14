@@ -11,6 +11,10 @@ CREATE TABLE reino (
     descricao TEXT
 );
 
+INSERT INTO reino (nome, descricao) VALUES
+('Tibar', 'Reino Tibar, conhecido por sua fortaleza'),
+('Anoes', 'Reino Anoes, famoso por seus guerreiros');
+
 CREATE TABLE taxa_cambio (
     id BIGSERIAL PRIMARY KEY,
     moeda_origem_id BIGINT NOT NULL,

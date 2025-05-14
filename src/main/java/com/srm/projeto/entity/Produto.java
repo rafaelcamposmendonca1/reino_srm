@@ -1,10 +1,12 @@
 package com.srm.projeto.entity;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Builder
 @Data
 @Entity
 public class Produto {
@@ -19,7 +21,7 @@ public class Produto {
 
     private Double preco;
 
-    private LocalDateTime dataCriacao = LocalDateTime.now();
+    private LocalDateTime dataCriacao;
 
     @ManyToOne
     @JoinColumn(name = "reino_origem_id", nullable = false)
