@@ -5,6 +5,12 @@ CREATE TABLE moeda (
     descricao TEXT
 );
 
+CREATE TABLE reino (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao TEXT
+);
+
 CREATE TABLE taxa_cambio (
     id BIGSERIAL PRIMARY KEY,
     moeda_origem_id BIGINT NOT NULL,
@@ -21,9 +27,10 @@ CREATE TABLE produto (
     id BIGSERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     descricao TEXT,
-    reino_origem VARCHAR(50) NOT NULL,
     preco DOUBLE PRECISION NOT NULL,
-    data_criacao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    data_criacao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    reino_origem_id BIGINT NOT NULL,
+    CONSTRAINT fk_produto_reino FOREIGN KEY (reino_origem_id) REFERENCES reino(id)
 );
 
 CREATE TABLE transacao (
@@ -34,9 +41,9 @@ CREATE TABLE transacao (
     valor_convertido DOUBLE PRECISION NOT NULL,
     valor_total_convertido DOUBLE PRECISION NOT NULL,
     quantidade INTEGER NOT NULL,
-    reino_origem VARCHAR(50) NOT NULL,
-    data_transacao TIMESTAMP NOT NULL,
-    data_criacao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    data_transacao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    reino_origem_id BIGINT NOT NULL,
     CONSTRAINT fk_transacao_produto FOREIGN KEY (produto_id) REFERENCES produto(id),
-    CONSTRAINT fk_transacao_moeda FOREIGN KEY (moeda_id) REFERENCES moeda(id)
+    CONSTRAINT fk_transacao_moeda FOREIGN KEY (moeda_id) REFERENCES moeda(id),
+    CONSTRAINT fk_transacao_reino FOREIGN KEY (reino_origem_id) REFERENCES reino(id)
 );

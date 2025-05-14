@@ -2,16 +2,15 @@ package com.srm.projeto.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
 public class Transacao {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
@@ -22,7 +21,18 @@ public class Transacao {
     @JoinColumn(name = "moeda_id")
     private Moeda moeda;
 
+    private Double valorOriginal;
+
     private Double valorConvertido;
 
+    private Double valorTotalConvertido;
+
     private Integer quantidade;
+
+    private LocalDateTime data_transacao = LocalDateTime.now();
+
+    @ManyToOne
+    @JoinColumn(name = "reino_origem_id", nullable = false)
+    private Reino reinoOrigem;
+
 }

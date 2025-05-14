@@ -247,8 +247,7 @@ components:
         descricao:
           type: string
         reinoOrigem:
-          type: string
-          enum: [SRM, Anoes]
+          $ref: '#/components/schemas/Reino'
         preco:
           type: number
           format: double
@@ -266,8 +265,7 @@ components:
         descricao:
           type: string
         reinoOrigem:
-          type: string
-          enum: [SRM, Anoes]
+          $ref: '#/components/schemas/Reino'
         preco:
           type: number
           format: double
@@ -292,8 +290,7 @@ components:
         quantidade:
           type: integer
         reinoOrigem:
-          type: string
-          enum: [SRM, Anoes]
+          $ref: '#/components/schemas/Reino'
         dataTransacao:
           type: string
           format: date-time
@@ -321,14 +318,23 @@ components:
           type: integer
           format: int64
         reinoOrigem:
-          type: string
-          enum: [SRM, Anoes]
+          $ref: '#/components/schemas/Reino'
       required:
         - produtoId
         - moedaOrigemId
         - moedaDestinoId
         - valorOriginal
         - valorConvertido
+
+    Reino:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: integer
+      required:
+        - nome
         - taxaUtilizada
         - quantidade
         - reinoOrigem

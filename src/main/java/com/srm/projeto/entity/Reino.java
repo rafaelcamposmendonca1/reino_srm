@@ -9,16 +9,12 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class Moeda {
+public class Reino {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
     private String nome;
-
-    private String simbolo;
-
-    private String descricao;
 
 }
