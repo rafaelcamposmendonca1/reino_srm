@@ -6,8 +6,13 @@ import com.srm.projeto.model.TransacaoOutput;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {ProdutoMapper.class, MoedaMapper.class})
+import java.util.List;
+
+@Mapper(componentModel = "spring", uses = {ProdutoMapper.class, MoedaMapper.class, ReinoMapperHelper.class})
 public interface TransacaoMapper {
 
-    TransacaoOutput transacaoToTransacaoOutput(Transacao entity);
+    List<TransacaoOutput> transacaoListToTransacaoOutputList(List<Transacao> transacaoList);
+    TransacaoOutput transacaoToTransacaoOutput(Transacao transacao);
+    @Mapping(source = "reinoOrigem", target = "reinoOrigem")
+    Transacao transacaoInputToTransacao(TransacaoInput transacaoInput);
 }

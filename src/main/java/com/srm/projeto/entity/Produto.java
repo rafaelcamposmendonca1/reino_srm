@@ -6,7 +6,6 @@ import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Builder
 @Data
 @Entity
 public class Produto {

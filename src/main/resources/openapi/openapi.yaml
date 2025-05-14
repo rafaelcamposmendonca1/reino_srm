@@ -45,18 +45,20 @@ paths:
     get:
       summary: Obtem a taxa de cambio atual entre Ouro Real e Tibar
       tags:
-        - Moedas
+        - Taxa Cambio
       responses:
         '200':
           description: Taxa de cambio atual retornada com sucesso
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TaxaCambioOutput'
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaxaCambioOutput'
     post:
       summary: Atualiza a taxa de cambio entre Ouro Real e Tibar
       tags:
-        - Moedas
+        - Taxa Cambio
       requestBody:
         required: true
         content:
@@ -64,7 +66,32 @@ paths:
             schema:
               $ref: '#/components/schemas/TaxaCambioInput'
       responses:
-        '201':
+        '200':
+          description: Taxa de cambio atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxaCambioOutput'
+  /taxas-cambio/{id}:
+    put:
+      summary: Atualiza a taxa de cambio entre Ouro Real e Tibar
+      tags:
+        - Taxa Cambio
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID da taxa de cambio
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaxaCambioUpdate'
+      responses:
+        '200':
           description: Taxa de cambio atualizada com sucesso
           content:
             application/json:
@@ -102,29 +129,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProdutoOutput'
-
-  /produtos/{id}:
-    get:
-      summary: Obtem detalhes de um produto especifico
-      tags:
-        - Produtos
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-          description: ID do produto
-      responses:
-        '200':
-          description: Detalhes do produto retornados com sucesso
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProdutoOutput'
-        '404':
-          description: Produto nao encontrado
-
 
   /transacoes:
     get:
@@ -189,6 +193,23 @@ components:
         - nome
         - simbolo
 
+    TaxaCambioInput:
+      type: object
+      properties:
+        moedaOrigemId:
+          type: integer
+          format: int64
+        moedaDestinoId:
+          type: integer
+          format: int64
+        taxa:
+          type: number
+          format: double
+      required:
+        - moedaOrigemId
+        - moedaDestinoId
+        - taxa
+
     TaxaCambioOutput:
       type: object
       properties:
@@ -202,9 +223,6 @@ components:
         taxa:
           type: number
           format: double
-        dataVigencia:
-          type: string
-          format: date-time
         dataCriacao:
           type: string
           format: date-time
@@ -213,9 +231,8 @@ components:
         - moedaOrigem
         - moedaDestino
         - taxa
-        - dataVigencia
 
-    TaxaCambioInput:
+    TaxaCambioUpdate:
       type: object
       properties:
         moedaOrigemId:
@@ -227,14 +244,10 @@ components:
         taxa:
           type: number
           format: double
-        dataVigencia:
-          type: string
-          format: date-time
       required:
         - moedaOrigemId
         - moedaDestinoId
         - taxa
-        - dataVigencia
 
     ProdutoOutput:
       type: object

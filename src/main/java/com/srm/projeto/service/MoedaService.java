@@ -29,5 +29,4 @@ public class MoedaService {
         return moedaMapper.moedaListToMoedaOutputList(moedaRepository.findAll());
     };
 
-
 }

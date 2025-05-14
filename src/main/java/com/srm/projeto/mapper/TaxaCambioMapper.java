@@ -12,7 +12,6 @@ public interface TaxaCambioMapper {
     @Mapping(source = "moedaOrigemId", target = "moedaOrigem.id")
     @Mapping(source = "moedaDestinoId", target = "moedaDestino.id")
     TaxaCambio taxaCambioInputToTaxaCambio(TaxaCambioInput input);
-
     TaxaCambioOutput taxaCambioToTaxaCambioOutput(TaxaCambio entity);
 
 }

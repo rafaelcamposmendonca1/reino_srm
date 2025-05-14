@@ -6,6 +6,7 @@ import com.srm.projeto.model.MoedaOutput;
 import com.srm.projeto.model.TaxaCambioInput;
 import com.srm.projeto.model.TaxaCambioOutput;
 import com.srm.projeto.service.MoedaService;
+import com.srm.projeto.service.TaxaCambioService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,13 +32,4 @@ public class MoedasApiImpl implements MoedasApi {
         return new ResponseEntity<>(moedaService.save(moedaInput), CREATED);
     }
 
-    @Override
-    public ResponseEntity<TaxaCambioOutput> _taxasCambioGet() {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<TaxaCambioOutput> _taxasCambioPost(TaxaCambioInput taxaCambioInput) {
-        return null;
-    }
 }

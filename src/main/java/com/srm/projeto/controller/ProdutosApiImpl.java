@@ -25,11 +25,6 @@ public class ProdutosApiImpl implements ProdutosApi {
     }
 
     @Override
-    public ResponseEntity<ProdutoOutput> _produtosIdGet(Integer id) {
-        return null;
-    }
-
-    @Override
     public ResponseEntity<ProdutoOutput> _produtosPost(ProdutoInput produtoInput) {
         return new ResponseEntity<>(produtoService.save(produtoInput), CREATED);
     }

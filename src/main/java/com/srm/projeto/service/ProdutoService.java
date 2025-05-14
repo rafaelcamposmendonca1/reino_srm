@@ -16,23 +16,14 @@ import java.util.List;
 @Service
 public class ProdutoService {
 
-    private final ProdutoRepository produtoRepository;
-    private final ProdutoMapper produtoMapper;
-    private final ReinoService reinoService;
+    private final ProdutoRepository repository;
+    private final ProdutoMapper mapper;
 
     public ProdutoOutput save(ProdutoInput produtoInput){
-        Reino reino = reinoService.findByNome(produtoInput.getReinoOrigem());
-        Produto produto = Produto.builder()
-                .nome(produtoInput.getNome())
-                .descricao(produtoInput.getDescricao())
-                .preco(produtoInput.getPreco())
-                .reinoOrigem(reino)
-                .dataCriacao(LocalDateTime.now())
-                .build();
-        return produtoMapper.produtoToProdutoOutput(produtoRepository.save(produto));
+        return mapper.produtoToProdutoOutput(repository.save(mapper.produtoInputToProduto(produtoInput)));
     }
 
     public List<ProdutoOutput> findAll(){
-        return produtoMapper.produtoListToProdutoOutputList(produtoRepository.findAll());
+        return mapper.produtoListToProdutoOutputList(repository.findAll());
     };
 }
