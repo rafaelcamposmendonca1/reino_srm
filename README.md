@@ -122,4 +122,4 @@ o ip do wsl ou da maquina que voce utilizou para subir o docker.
 
 ### DIAGRAMA BANCO
 
-<img src="https://postimg.cc/2bgxjRQS" alt="Descrição da imagem" width="500"/>
+![Diagrama em branco.png](src/main/resources/Diagrama%20em%20branco.png)
