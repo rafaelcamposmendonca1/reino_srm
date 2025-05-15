@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Data
 @Entity
@@ -33,10 +34,14 @@ public class Transacao {
 
     private Double valorTotalConvertido;
 
+    private Double valorTotalConvertidoTaxa;
+
+    private Double taxa;
+
     @ManyToOne
     @JoinColumn(name = "reino_transacao_id", nullable = false)
     private Reino reinoTransacao;
 
-    private LocalDateTime data_transacao = LocalDateTime.now();
+    private OffsetDateTime dataTransacao;
 
 }

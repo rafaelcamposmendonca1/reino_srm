@@ -1,7 +1,5 @@
 package com.srm.projeto.service;
 
-import com.srm.projeto.entity.Produto;
-import com.srm.projeto.entity.Reino;
 import com.srm.projeto.mapper.ProdutoMapper;
 import com.srm.projeto.model.ProdutoInput;
 import com.srm.projeto.model.ProdutoOutput;
@@ -9,7 +7,6 @@ import com.srm.projeto.repository.ProdutoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor

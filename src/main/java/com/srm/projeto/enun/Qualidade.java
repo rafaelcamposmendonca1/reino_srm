@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public enum Qualidade {
-    RUIM("Ruim"),
-    MEDIA("Media"),
-    BOA("Boa"),
-    OTIMA("Otima");
+    RUIM("ruim"),
+    MEDIA("media"),
+    BOA("boa"),
+    OTIMA("otima");
 
     private final String descricao;
 

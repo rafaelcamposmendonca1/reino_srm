@@ -17,4 +17,6 @@ public class Reino {
 
     private String nome;
 
+    private Double valorProdutoReino;
+
 }

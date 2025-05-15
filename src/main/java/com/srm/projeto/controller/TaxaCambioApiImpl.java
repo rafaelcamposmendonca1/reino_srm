@@ -22,7 +22,7 @@ public class TaxaCambioApiImpl implements TaxaCambioApi {
 
     @Override
     public ResponseEntity<List<TaxaCambioOutput>> _taxasCambioGet() {
-        return new ResponseEntity<>(taxaCambioService.findAll() ,CREATED);
+        return new ResponseEntity<>(taxaCambioService.findAll() ,OK);
     }
 
     @Override

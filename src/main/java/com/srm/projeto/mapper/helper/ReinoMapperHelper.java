@@ -1,4 +1,4 @@
-package com.srm.projeto.mapper;
+package com.srm.projeto.mapper.helper;
 
 import com.srm.projeto.entity.Reino;
 import com.srm.projeto.repository.ReinoRepository;
@@ -12,6 +12,6 @@ public class ReinoMapperHelper {
     private final ReinoRepository repository;
 
     public Reino map(String name) {
-        return repository.findByNome(name).orElseThrow( () -> new RuntimeException("nao encontrando"));
+        return repository.findByNome(name).orElseThrow( () -> new RuntimeException("Reino nao encontrando"));
     }
 }

@@ -1,4 +1,4 @@
-package com.srm.projeto.mapper;
+package com.srm.projeto.mapper.helper;
 
 import org.springframework.stereotype.Component;
 

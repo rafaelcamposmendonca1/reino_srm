@@ -41,6 +41,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/MoedaOutput'
 
+  /reinos:
+    get:
+      summary: Lista Todos os Reinos
+      tags:
+        - Reinos
+      responses:
+        '200':
+          description: Lista de reinos retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReinoOutput'
+
   /taxas-cambio:
     get:
       summary: Obtem a taxa de cambio atual entre Ouro Real e Tibar
@@ -221,6 +236,9 @@ components:
           $ref: '#/components/schemas/MoedaOutput'
         moedaDestino:
           $ref: '#/components/schemas/MoedaOutput'
+        valorConvertido:
+          type: number
+          format: double
         taxa:
           type: number
           format: double
@@ -231,6 +249,7 @@ components:
         - id
         - moedaOrigem
         - moedaDestino
+        - valorConvertido
         - taxa
 
     TaxaCambioUpdate:
@@ -256,9 +275,6 @@ components:
           type: string
         descricao:
           type: string
-        preco:
-          type: number
-          format: double
         qualidade:
           type: string
           enum:
@@ -271,7 +287,6 @@ components:
       required:
         - id
         - nome
-        - preco
         - qualidade
         - reinoOrigem
 
@@ -317,8 +332,17 @@ components:
         valorConvertido:
           type: number
           format: double
+        valorTotalConvertido:
+          type: number
+          format: double
+        valorTotalConvertidoTaxa:
+          type: number
+          format: double
+        taxa:
+          type: number
+          format: double
         reinoTransacao:
-          $ref: '#/components/schemas/ReinoOutput'
+          $ref: '#/components/schemas/ReinoTransacaoOutput'
         dataTransacao:
           type: string
           format: date-time
@@ -330,8 +354,11 @@ components:
         - moedaTransacao
         - valorProduto
         - valorConvertido
+        - valorTotalConvertido
         - reinoTransacao
         - dataTransacao
+        - valorTotalConvertidoTaxa
+        - taxa
 
     TransacaoInput:
       type: object
@@ -367,8 +394,21 @@ components:
           type: integer
         nome:
           type: string
+        valorProdutoReino:
+          type: number
+          format: double
       required:
+        - id
         - nome
-        - taxaUtilizada
-        - quantidade
+        - valorProdutoReino
         - reinoOrigem
+    ReinoTransacaoOutput:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+      required:
+        - id
+        - nome

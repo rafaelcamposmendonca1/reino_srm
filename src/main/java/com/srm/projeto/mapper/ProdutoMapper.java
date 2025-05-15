@@ -1,6 +1,8 @@
 package com.srm.projeto.mapper;
 
 import com.srm.projeto.entity.Produto;
+import com.srm.projeto.mapper.helper.ReinoMapperHelper;
+import com.srm.projeto.mapper.helper.TransacaoMapperHelper;
 import com.srm.projeto.model.ProdutoInput;
 import com.srm.projeto.model.ProdutoOutput;
 import org.mapstruct.Mapper;
@@ -12,8 +14,10 @@ import java.util.List;
 public interface ProdutoMapper {
 
     ProdutoOutput produtoToProdutoOutput(Produto produto);
+
     List<ProdutoOutput> produtoListToProdutoOutputList(List<Produto> produtoList);
+
     @Mapping(source = "reinoOrigem", target = "reinoOrigem")
-    @Mapping(target = "dataCriacao", expression = "java(TransacaoMapperHelper.dateTimeNow())")
+    @Mapping(target = "dataCriacao", expression = "java(com.srm.projeto.mapper.helper.TransacaoMapperHelper.dateTimeNow())")
     Produto produtoInputToProduto(ProdutoInput produtoInput);
 }

@@ -22,6 +22,8 @@ public class TaxaCambio {
     @JoinColumn(name = "moeda_destino_id")
     private Moeda moedaDestino;
 
+    private Double valorConvertido;
+
     private Double taxa;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
