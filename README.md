@@ -3,7 +3,7 @@ Spring Boot com PostgreSQL, Swagger e Docker
 
 API para gerenciar conversões entre Ouro Real e Tibar no Mercado de Pulgas dos Mil Saberes. Este sistema permite o registro e conversão de moedas entre diferentes reinos, gerenciamento de produtos, taxas de câmbio e transações comerciais.
 
-? Índice
+##  Indice
 Tecnologias Utilizadas
 - Estrutura do Projeto
 - Configuracao e Instalacao
@@ -12,7 +12,7 @@ Tecnologias Utilizadas
 - Esquema do Banco de Dados
 - Exemplos de Uso
 
-? Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
 - Spring Boot 2.7.18: Framework para desenvolvimento de aplicacoes Java
 
@@ -34,7 +34,7 @@ Tecnologias Utilizadas
 
 
 
-## ? Configuracao e Instalacao
+##  Configuracao e Instalacao
 
 ### Pre-requisitos
 - Java 11 ou superior
