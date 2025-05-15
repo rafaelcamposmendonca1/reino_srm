@@ -5,7 +5,7 @@ CREATE TABLE moeda (
     descricao TEXT
 );
 INSERT INTO moeda (nome, simbolo, descricao) VALUES
-('Ouro Real', 'OR', 'Moeda da capital Real'),
+('Ouro Real', 'OR', 'Moeda da capital Real SRM'),
 ('Tibar', 'TB', 'Moeda do reino dos anoes');
 
 CREATE TABLE reino (
@@ -16,8 +16,8 @@ CREATE TABLE reino (
 );
 
 INSERT INTO reino (nome, descricao, valor_produto_reino) VALUES
-('Tibar', 'Reino Tibar, conhecido por sua fortaleza', 90.0),
-('Anoes', 'Reino Anoes, famoso por seus guerreiros', 100.0);
+('SRM', 'Reino SRM, conhecido por sua fortaleza', 100.0),
+('Anoes', 'Reino Anoes, famoso por seus guerreiros', 90.0);
 
 CREATE TABLE taxa_cambio (
     id BIGSERIAL PRIMARY KEY,

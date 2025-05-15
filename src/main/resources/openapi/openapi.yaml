@@ -70,23 +70,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/TaxaCambioOutput'
-    post:
-      summary: Atualiza a taxa de cambio entre Ouro Real e Tibar
-      tags:
-        - Taxa Cambio
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TaxaCambioInput'
-      responses:
-        '200':
-          description: Taxa de cambio atualizada com sucesso
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TaxaCambioOutput'
+
   /taxas-cambio/{id}:
     put:
       summary: Atualiza a taxa de cambio entre Ouro Real e Tibar
@@ -178,8 +162,55 @@ paths:
               schema:
                 $ref: '#/components/schemas/TransacaoOutput'
 
+  /transacoes/filtrar:
+    get:
+      summary: Filtra transacoes usando parametros de consulta
+      tags:
+        - Transacoes
+      parameters:
+        - name: moedaProdutoId
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: moedaTransacaoId
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: reinoTransacao
+          in: query
+          schema:
+            type: string
+        - name: reinoOrigem
+          in: query
+          schema:
+            type: string
+        - name: dataTransacao
+          in: query
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Lista paginada de transacoes filtradas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransacaoFiltedOutput'
+
 components:
   schemas:
+    TransacaoFiltedOutput:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransacaoOutput'
+        totalElements:
+          type: integer
+
     MoedaInput:
       type: object
       properties:
@@ -218,12 +249,16 @@ components:
         moedaDestinoId:
           type: integer
           format: int64
+        valorConvertido:
+          type: number
+          format: double
         taxa:
           type: number
           format: double
       required:
         - moedaOrigemId
         - moedaDestinoId
+        - valorConvertido
         - taxa
 
     TaxaCambioOutput:
@@ -386,6 +421,23 @@ components:
         - moedaProdutoId
         - moedaTransacaoId
         - reinoTransacao
+
+    TransacaoFiltroInput:
+      type: object
+      properties:
+        moedaProdutoId:
+          type: integer
+          format: int64
+        moedaTransacaoId:
+          type: integer
+          format: int64
+        reinoTransacao:
+          type: string
+        reinoOrigem:
+          type: string
+        dataTransacao:
+          type: string
+          format: date-time
 
     ReinoOutput:
       type: object

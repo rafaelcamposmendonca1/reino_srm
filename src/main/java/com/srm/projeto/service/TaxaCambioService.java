@@ -2,6 +2,7 @@ package com.srm.projeto.service;
 
 import com.srm.projeto.entity.TaxaCambio;
 import com.srm.projeto.mapper.TaxaCambioMapper;
+import com.srm.projeto.model.TaxaCambioInput;
 import com.srm.projeto.model.TaxaCambioOutput;
 import com.srm.projeto.model.TaxaCambioUpdate;
 import com.srm.projeto.repository.MoedaRepository;
@@ -50,4 +51,5 @@ public class TaxaCambioService {
             throw new RuntimeException();
         }
     }
+
 }

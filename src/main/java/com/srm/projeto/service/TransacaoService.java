@@ -3,11 +3,12 @@ package com.srm.projeto.service;
 import com.srm.projeto.entity.TaxaCambio;
 import com.srm.projeto.entity.Transacao;
 import com.srm.projeto.mapper.TransacaoMapper;
+import com.srm.projeto.model.TransacaoFiltroInput;
 import com.srm.projeto.model.TransacaoInput;
 import com.srm.projeto.model.TransacaoOutput;
-import com.srm.projeto.repository.ProdutoRepository;
 import com.srm.projeto.repository.TaxaCambioRepository;
 import com.srm.projeto.repository.TransacaoRepository;
+import com.srm.projeto.repository.TransacaoRepositoryFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,11 @@ public class TransacaoService {
     private final TransacaoRepository repository;
     private final TaxaCambioRepository taxaCambioRepository;
     private final TransacaoMapper mapper;
+    private final TransacaoRepositoryFilter repositoryFilter;
+
+    public List<TransacaoOutput> findWithFilter(TransacaoFiltroInput filtro) {
+       return repositoryFilter.findWithFilter(filtro);
+    }
 
     public TransacaoOutput save(TransacaoInput transacaoInput) {
 
@@ -62,7 +68,6 @@ public class TransacaoService {
     public List<TransacaoOutput> findAll() {
         return mapper.transacaoListToTransacaoOutputList(repository.findAll());
     }
-
 
     private Double adjustProductValueBasedOnQuality(Double productValue, String qualidade) {
         switch (qualidade) {

@@ -29,9 +29,4 @@ public class TaxaCambioApiImpl implements TaxaCambioApi {
     public ResponseEntity<TaxaCambioOutput> _taxasCambioIdPut(Long id, TaxaCambioUpdate taxaCambioUpdate) {
         return new ResponseEntity<>(taxaCambioService.update(id, taxaCambioUpdate) ,OK);
     }
-
-    @Override
-    public ResponseEntity<TaxaCambioOutput> _taxasCambioPost(TaxaCambioInput taxaCambioInput) {
-        return null;
-    }
 }
